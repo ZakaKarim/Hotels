@@ -1,0 +1,6 @@
+# IGNORE NODE_modules
+ node_modules/
+ tutorial-4
+ notes.js
+
+# git rm --cached notes.js ,git rm -r --cached node_modules
