@@ -24,3 +24,5 @@ app.use("/menu", menuRoutes);
 app.listen(3500, () => {
   console.log(`Server is runing on port 3500`);
 });
+
+//adding for testing purpose
