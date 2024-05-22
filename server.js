@@ -1,14 +1,21 @@
 const express = require("express");
 const app = express();
 const db = require("./db");
-
+const passport = require("./auth");
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
-// const Person = require("./Model/Person");
+//Middleware Function
+const logRequest = (req, res, next) => {
+  console.log(
+    `[${new Date().toLocaleString()}] Request Made to: ${req.originalUrl}`
+  );
+  next();
+};
+app.use(logRequest);
 
-// const Menu = require("./Model/Menu");
-
+app.use(passport.initialize());
+const LocalAuthMiddleware = passport.authenticate("local", { session: false });
 app.get("/", function (req, res) {
   res.send("Hello Welcome to my hotel...how can i serve you");
 });
@@ -18,7 +25,7 @@ const personRoutes = require("./routes/personRoutes");
 const menuRoutes = require("./routes/menuRoutes");
 
 //Use the Routers
-app.use("/person", personRoutes);
+app.use("/person", LocalAuthMiddleware, personRoutes);
 app.use("/menu", menuRoutes);
 
 app.listen(3500, () => {
