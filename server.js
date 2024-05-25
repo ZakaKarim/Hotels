@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express();
 const db = require("./db");
+require("dotenv").config();
 const passport = require("./auth");
+
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
@@ -25,7 +27,7 @@ const personRoutes = require("./routes/personRoutes");
 const menuRoutes = require("./routes/menuRoutes");
 
 //Use the Routers
-app.use("/person", LocalAuthMiddleware, personRoutes);
+app.use("/person", personRoutes);
 app.use("/menu", menuRoutes);
 
 app.listen(3500, () => {
